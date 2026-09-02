@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Museum | A Journey Through Human Innovation</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap');
+
+:root{
+    --bg:#02070a;
+    --panel:#0b151d;
+    --panel2:#0d1b25;
+    --white:#f4f1e8;
+    --muted:#aeb7b9;
+    --gold:#d6a85b;
+    --gold-light:#e8c47d;
+    --border:rgba(255,255,255,.10);
+    --heading-font:'Cinzel',serif;
+    --body-font:'Inter',sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+    background:var(--bg);
+    color:var(--white);
+    font-family:var(--body-font);
+    line-height:1.7;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1000;
+    min-height:76px;
+    padding:15px 5vw;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:25px;
+    background:rgba(2,7,10,.88);
+    border-bottom:1px solid var(--border);
+    backdrop-filter:blur(12px);
+}
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--heading-font);
+    font-size:14px;
+    letter-spacing:1px;
+    white-space:nowrap;
+}
+.logo strong{color:var(--gold-light)}
+.logo-icon{font-size:24px}
+.nav-links{
+    display:flex;
+    gap:28px;
+    align-items:center;
+}
+.nav-links a{
+    color:#cbd0d0;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.2px;
+    transition:.25s;
+}
+.nav-links a:hover{color:var(--gold-light)}
+.nav-button,.primary-button{
+    display:inline-block;
+    padding:11px 18px;
+    border:1px solid var(--gold);
+    color:var(--gold-light);
+    font-size:10px;
+    letter-spacing:1.4px;
+    text-transform:uppercase;
+    transition:.3s;
+}
+.nav-button:hover,.primary-button:hover{
+    background:var(--gold);
+    color:#071015;
+}
+
+.hero{
+    min-height:100vh;
+    padding:170px 7vw 100px;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+    background:
+        linear-gradient(to bottom,rgba(2,7,10,.25),rgba(2,7,10,.96)),
+        url("BG.png?auto=format&fit=crop&w=2200&q=85") center/cover no-repeat;
+}
+.hero:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 70% 40%,rgba(214,168,91,.13),transparent 40%);
+    pointer-events:none;
+}
+.hero-content{position:relative;z-index:2;max-width:850px}
+.section-label{
+    color:var(--gold);
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+}
+.hero h1{
+    margin:15px 0 22px;
+    font-family:var(--heading-font);
+    font-size:clamp(48px,8vw,100px);
+    font-weight:400;
+    line-height:1.05;
+    letter-spacing:3px;
+}
+.hero h1 span{display:block;color:var(--gold-light)}
+.hero p{
+    max-width:650px;
+    color:#c5cccd;
+    font-size:15px;
+}
+.hero-buttons{display:flex;gap:15px;margin-top:32px;flex-wrap:wrap}
+
+section{scroll-margin-top:90px}
+
+.intro{
+    max-width:950px;
+    margin:auto;
+    padding:120px 25px 80px;
+    text-align:center;
+}
+.intro h2,.section-heading h2{
+    margin:12px 0 20px;
+    font-family:var(--heading-font);
+    font-size:clamp(32px,5vw,52px);
+    font-weight:400;
+}
+.intro h2 span,.section-heading h2 span{color:var(--gold-light)}
+.intro p:last-child{
+    max-width:780px;
+    margin:auto;
+    color:var(--muted);
+    font-size:14px;
+}
+
+.section-heading{
+    max-width:1150px;
+    margin:0 auto 45px;
+    padding:0 25px;
+    text-align:center;
+}
+
+.collections{
+    padding:70px 0 120px;
+}
+.collection-grid{
+    max-width:1150px;
+    margin:auto;
+    padding:0 25px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+.collection-card{
+    min-height:360px;
+    padding:35px;
+    position:relative;
+    display:flex;
+    align-items:flex-end;
+    overflow:hidden;
+    border:1px solid var(--border);
+    background-size:cover;
+    background-position:center;
+    transition:transform .35s,border-color .35s;
+}
+.collection-card:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top,rgba(2,7,10,.98),rgba(2,7,10,.18));
+}
+.collection-card:hover{
+    transform:translateY(-6px);
+    border-color:var(--gold);
+}
+.collection-card-content{position:relative;z-index:2}
+.collection-card .number{
+    color:var(--gold);
+    font-family:var(--heading-font);
+    font-size:12px;
+}
+.collection-card h3{
+    margin:8px 0 8px;
+    font-family:var(--heading-font);
+    font-size:28px;
+    font-weight:400;
+}
+.collection-card p{
+    max-width:450px;
+    color:#bdc5c6;
+    font-size:12px;
+}
+.card-link{
+    display:inline-block;
+    margin-top:18px;
+    color:var(--gold-light);
+    font-size:10px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+}
+
+.prehistory{background-image:url("history.avif?auto=format&fit=crop&w=1600&q=85")}
+.ancient{background-image:url("ancient.png?auto=format&fit=crop&w=1600&q=85")}
+.industrial{background-image:url("industrial.avif?auto=format&fit=crop&w=1600&q=85")}
+.modern{background-image:url("modern.avif?auto=format&fit=crop&w=1600&q=85")}
+.space{background-image:url("space.avif?auto=format&fit=crop&w=1600&q=85")}
+.digital{background-image:url("digital.avif?auto=format&fit=crop&w=1600&q=85")}
+
+.timeline{
+    padding:120px 0;
+    background:#061016;
+}
+.timeline-list{
+    max-width:950px;
+    margin:auto;
+    padding:0 25px;
+    position:relative;
+}
+.timeline-list:before{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:0;
+    bottom:0;
+    width:1px;
+    background:var(--border);
+}
+.timeline-item{
+    width:50%;
+    padding:0 45px 55px;
+    position:relative;
+}
+.timeline-item:nth-child(even){margin-left:50%}
+.timeline-item:after{
+    content:"";
+    position:absolute;
+    top:5px;
+    width:10px;
+    height:10px;
+    border:1px solid var(--gold);
+    background:var(--bg);
+    transform:rotate(45deg);
+}
+.timeline-item:nth-child(odd):after{right:-5px}
+.timeline-item:nth-child(even):after{left:-5px}
+.timeline-year{
+    color:var(--gold-light);
+    font-family:var(--heading-font);
+    font-size:25px;
+}
+.timeline-item h3{
+    margin:5px 0 7px;
+    font-family:var(--heading-font);
+    font-size:20px;
+    font-weight:400;
+}
+.timeline-item p{color:var(--muted);font-size:12px}
+
+.gallery{
+    padding:120px 0;
+}
+.artifact-grid{
+    max-width:1150px;
+    margin:auto;
+    padding:0 25px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+.artifact-img{
+    width:100%;
+    height:135px;
+    object-fit:cover;
+    margin-bottom:18px;
+    border:1px solid var(--border);
+    opacity:.88;
+}
+.artifact{
+    min-height:230px;
+    padding:28px 22px;
+    border:1px solid var(--border);
+    background:linear-gradient(135deg,var(--panel2),#071118);
+    transition:.3s;
+}
+.artifact:hover{
+    transform:translateY(-5px);
+    border-color:var(--gold);
+}
+.artifact .num{color:rgba(214,168,91,.55);font-family:var(--heading-font);font-size:12px}
+.artifact h3{
+    margin:30px 0 8px;
+    font-family:var(--heading-font);
+    font-size:19px;
+    font-weight:400;
+}
+.artifact p{font-size:11px;color:var(--muted)}
+
+.about{
+    padding:120px 25px;
+    background:#061016;
+}
+.about-box{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+}
+.about-box p:not(.section-label){
+    color:var(--muted);
+    font-size:14px;
+    margin-top:20px;
+}
+.about-details{
+    margin-top:40px;
+    padding-top:25px;
+    border-top:1px solid var(--border);
+    color:var(--gold-light);
+    font-size:10px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.collection-page{
+    padding-top:76px;
+}
+.collection-page-hero{
+    min-height:72vh;
+    position:relative;
+    display:flex;
+    align-items:end;
+    padding:150px max(25px,7vw) 90px;
+    background-size:cover;
+    background-position:center;
+}
+.collection-page-hero:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 65% 45%,rgba(214,168,91,.10),transparent 42%);
+    pointer-events:none;
+}
+.collection-hero-content{
+    position:relative;
+    z-index:2;
+    max-width:900px;
+}
+.collection-hero-content h1{
+    margin:12px 0 20px;
+    font-family:var(--heading-font);
+    font-size:clamp(44px,7vw,86px);
+    line-height:1.05;
+    font-weight:400;
+    letter-spacing:3px;
+}
+.collection-hero-content h1 span{display:block;color:var(--gold-light)}
+.collection-hero-content>p:last-child{
+    max-width:650px;
+    color:#d0d4d4;
+    font-size:15px;
+}
+
+.collection-intro{
+    max-width:900px;
+    margin:auto;
+    padding:110px 25px 70px;
+}
+.collection-intro h2{
+    margin:15px 0 20px;
+    font-family:var(--heading-font);
+    font-size:clamp(30px,4vw,48px);
+    font-weight:400;
+}
+.collection-intro h2 span{color:var(--gold-light)}
+.collection-intro p:last-child{
+    max-width:760px;
+    color:var(--muted);
+    font-size:14px;
+}
+
+.facts-strip{
+    max-width:1150px;
+    margin:0 auto 110px;
+    padding:0 25px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+}
+.fact-card{
+    min-height:150px;
+    padding:30px 20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    background:var(--panel);
+    text-align:center;
+}
+.fact-card strong{
+    color:var(--gold-light);
+    font-family:var(--heading-font);
+    font-size:27px;
+    font-weight:500;
+}
+.fact-card span{
+    margin-top:7px;
+    color:var(--muted);
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:1.3px;
+}
+
+.collection-artifacts{
+    max-width:1150px;
+    margin:auto;
+    padding:0 25px 120px;
+}
+.collection-artifacts-heading{
+    margin-bottom:40px;
+    text-align:center;
+}
+.collection-artifacts-heading h2{
+    margin-top:10px;
+    font-family:var(--heading-font);
+    font-size:clamp(30px,4vw,48px);
+    font-weight:400;
+}
+.artifact-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+.collection-artifact{
+    position:relative;
+    min-height:250px;
+    padding:40px 35px 35px 90px;
+    border:1px solid rgba(255,255,255,.10);
+    background:linear-gradient(135deg,#0d1b25,#071118);
+    transition:transform .35s,border-color .35s;
+}
+.collection-artifact:hover{
+    transform:translateY(-5px);
+    border-color:var(--gold);
+}
+.artifact-number{
+    position:absolute;
+    top:25px;
+    left:25px;
+    color:rgba(214,168,91,.45);
+    font-family:var(--heading-font);
+    font-size:13px;
+}
+.artifact-symbol{
+    position:absolute;
+    left:25px;
+    bottom:30px;
+    color:var(--gold-light);
+    font-size:24px;
+}
+.artifact-date{
+    color:var(--gold);
+    font-size:9px;
+    letter-spacing:1.5px;
+}
+.collection-artifact h3{
+    margin:7px 0 12px;
+    color:var(--white);
+    font-family:var(--heading-font);
+    font-size:22px;
+    font-weight:500;
+}
+.collection-artifact p{color:var(--muted);font-size:12px}
+
+.back-banner{
+    max-width:1150px;
+    margin:0 auto 100px;
+    padding:45px 30px;
+    border:1px solid var(--border);
+    text-align:center;
+    background:radial-gradient(circle at center,rgba(214,168,91,.08),transparent 65%);
+}
+.back-banner h2{
+    font-family:var(--heading-font);
+    font-weight:400;
+    font-size:28px;
+}
+.back-banner p{
+    margin:8px auto 25px;
+    color:var(--muted);
+    font-size:12px;
+}
+
+footer{
+    padding:45px 25px;
+    border-top:1px solid var(--border);
+    text-align:center;
+    background:#020608;
+}
+footer p{color:#7f898b;font-size:11px}
+footer strong{color:var(--gold-light);font-weight:500}
+
+@media(max-width:900px){
+    .nav-links{gap:14px}
+    .nav-button{display:none}
+    .artifact-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:750px){
+    .navbar{padding:12px 20px}
+    .nav-links{display:none}
+    .hero{padding-left:25px;padding-right:25px}
+    .collection-grid,
+    .artifact-list,
+    .facts-strip{grid-template-columns:1fr}
+    .artifact-grid{grid-template-columns:1fr}
+    .collection-page-hero{min-height:70vh}
+    .timeline-list:before{left:10px}
+    .timeline-item,
+    .timeline-item:nth-child(even){
+        width:100%;
+        margin-left:0;
+        padding-left:40px;
+        padding-right:10px;
+    }
+    .timeline-item:after,
+    .timeline-item:nth-child(odd):after,
+    .timeline-item:nth-child(even):after{
+        left:5px;
+        right:auto;
+    }
+}
+</style>
+<link rel="preload" as="image" href="BG.png">
+<link rel="preload" as="image" href="history.avif">
+<link rel="preload" as="image" href="ancient.png">
+<link rel="preload" as="image" href="industrial.avif">
+<link rel="preload" as="image" href="modern.avif">
+<link rel="preload" as="image" href="space.avif">
+<link rel="preload" as="image" href="digital.avif">
+</head>
+
+<body>
+
+<header class="navbar">
+    <a href="#home" class="logo">
+        <span class="logo-icon">🏛</span>
+        <span>DIGITAL <strong>MUSEUM</strong></span>
+    </a>
+
+    <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#collections">Explore</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#artifacts">Gallery</a>
+        <a href="#about">About</a>
+    </nav>
+
+    <a href="#collections" class="nav-button">Collections</a>
+</header>
+
+<main>
+
+<!--
+IMAGE FILES USED BY THIS PAGE:
+hero.png
+prehistory.avif
+ancient.png
+industrial.avif
+modern.avif
+space.avif
+digital.avif
+
+Keep these image files in the SAME GitHub repository folder as index.html.
+-->
+<!-- ================= HOME ================= -->
+<section id="home" class="hero">
+    <div class="hero-content">
+        <p class="section-label">A JOURNEY THROUGH HUMAN HISTORY</p>
+        <h1>DIGITAL <span>MUSEUM</span></h1>
+        <p>
+            Explore the inventions, discoveries and ideas that transformed
+            humanity — from the first stone tools to artificial intelligence.
+        </p>
+        <div class="hero-buttons">
+            <a href="#collections" class="primary-button">Explore Collections →</a>
+            <a href="#timeline" class="primary-button">View Timeline</a>
+        </div>
+    </div>
+</section>
+
+<!-- ================= INTRO ================= -->
+<section class="intro">
+    <p class="section-label">WELCOME TO THE MUSEUM</p>
+    <h2>Six chapters of <span>human progress.</span></h2>
+    <p>
+        Travel through time and discover how human creativity, curiosity and
+        invention shaped the world around us. Each collection represents a
+        different chapter in our journey.
+    </p>
+</section>
+
+<!-- ================= COLLECTIONS ================= -->
+<section id="collections" class="collections">
+    <div class="section-heading">
+        <p class="section-label">EXPLORE THE COLLECTIONS</p>
+        <h2>Six eras. <span>One journey.</span></h2>
+    </div>
+
+    <div class="collection-grid">
+
+        <a href="#prehistory" class="collection-card prehistory">
+            <div class="collection-card-content">
+                <span class="number">01</span>
+                <h3>Prehistory</h3>
+                <p>The age when humanity first learned to create, survive and imagine.</p>
+                <span class="card-link">Enter Collection →</span>
+            </div>
+        </a>
+
+        <a href="#ancient" class="collection-card ancient">
+            <div class="collection-card-content">
+                <span class="number">02</span>
+                <h3>Ancient Civilizations</h3>
+                <p>Cities, writing, mathematics and monumental ideas shaped the ancient world.</p>
+                <span class="card-link">Enter Collection →</span>
+            </div>
+        </a>
+
+        <a href="#industrial" class="collection-card industrial">
+            <div class="collection-card-content">
+                <span class="number">03</span>
+                <h3>Industrial Revolution</h3>
+                <p>Steam, factories and machines transformed how people worked and traveled.</p>
+                <span class="card-link">Enter Collection →</span>
+            </div>
+        </a>
+
+        <a href="#modern" class="collection-card modern">
+            <div class="collection-card-content">
+                <span class="number">04</span>
+                <h3>Modern Innovations</h3>
+                <p>Electricity, medicine, aviation and communication reshaped everyday life.</p>
+                <span class="card-link">Enter Collection →</span>
+            </div>
+        </a>
+
+        <a href="#space" class="collection-card space">
+            <div class="collection-card-content">
+                <span class="number">05</span>
+                <h3>Space Exploration</h3>
+                <p>From the first satellites to the Moon and beyond, humanity explored the cosmos.</p>
+                <span class="card-link">Enter Collection →</span>
+            </div>
+        </a>
+
+        <a href="#digital" class="collection-card digital">
+            <div class="collection-card-content">
+                <span class="number">06</span>
+                <h3>Digital Age</h3>
+                <p>Computers, networks and artificial intelligence are reshaping the future.</p>
+                <span class="card-link">Enter Collection →</span>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<!-- ================= TIMELINE ================= -->
+<section id="timeline" class="timeline">
+    <div class="section-heading">
+        <p class="section-label">A TIMELINE OF DISCOVERY</p>
+        <h2>Humanity through <span>time.</span></h2>
+    </div>
+
+    <div class="timeline-list">
+
+        <div class="timeline-item">
+            <div class="timeline-year">2.6 MILLION YEARS AGO</div>
+            <h3>Stone Tools</h3>
+            <p>Early humans began using stone tools to cut, break and process materials.</p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">3200 BCE</div>
+            <h3>Early Writing</h3>
+            <p>Cuneiform became one of the earliest known writing systems.</p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2600 BCE</div>
+            <h3>Great Monuments</h3>
+            <p>Ancient civilizations created enormous structures through planning and engineering.</p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">18TH CENTURY</div>
+            <h3>Industrialization</h3>
+            <p>Steam power and machines began transforming manufacturing and transportation.</p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">1903</div>
+            <h3>Powered Flight</h3>
+            <p>Powered aircraft opened a new chapter in transportation.</p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">1957</div>
+            <h3>Sputnik 1</h3>
+            <p>The first artificial satellite marked the beginning of the space age.</p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">1969</div>
+            <h3>Humans Reach the Moon</h3>
+            <p>The Apollo era demonstrated that humans could travel beyond Earth.</p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">1989–1991</div>
+            <h3>World Wide Web</h3>
+            <p>The Web connected documents and information across the Internet.</p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">TODAY</div>
+            <h3>Artificial Intelligence</h3>
+            <p>Modern AI systems recognize patterns, generate content and assist with complex tasks.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section id="artifacts" class="gallery">
+    <div class="section-heading">
+        <p class="section-label">THE GALLERY</p>
+        <h2>Featured <span>artifacts.</span></h2>
+    </div>
+
+    <div class="artifact-grid">
+
+        <article class="artifact">
+           <img class="artifact-img" src="tools.png" alt="Ancient stone tool">
+           <span class="num">01</span>
+           <h3>STONE TOOLS</h3>
+           <p>Early tools that changed how humans processed materials and survived.</p>
+        </article>
+
+        <article class="artifact">
+            <img class="artifact-img" src="tablet.avif" alt="Ancient writing tablet">
+            <span class="num">02</span>
+            <h3>CUNEIFORM TABLET</h3>
+            <p>One of the earliest writing systems, created by pressing wedge-shaped marks into clay.</p>
+        </article>
+
+        <article class="artifact">
+            <img class="artifact-img" src="steam.avif" alt="Industrial machinery">
+            <span class="num">03</span>
+            <h3>STEAM ENGINE</h3>
+            <p>Steam power provided mechanical energy for mines, factories and transportation.</p>
+        </article>
+
+        <article class="artifact">
+            <img class="artifact-img" src="telephones.png" alt="Telephone">
+            <span class="num">04</span>
+            <h3>TELEPHONE</h3>
+            <p>A communication technology that allowed people to speak across long distances.</p>
+        </article>
+
+        <article class="artifact">
+            <img class="artifact-img" src="digital.avif" alt="Electronic transistor technology">
+            <span class="num">05</span>
+            <h3>TRANSISTOR</h3>
+            <p>A fundamental building block of modern electronics and digital technology.</p>
+        </article>
+
+        <article class="artifact">
+            <img class="artifact-img" src="lunar.avif" alt="Space exploration">
+            <span class="num">06</span>
+            <h3>LUNAR MODULE</h3>
+            <p>The Apollo spacecraft that carried astronauts between lunar orbit and the Moon's surface.</p>
+        </article>
+
+        <article class="artifact">
+            <img class="artifact-img" src="mars.avif" alt="Mars rover and space exploration">
+            <span class="num">07</span>
+            <h3>MARS ROVER</h3>
+            <p>Robotic explorers that study rocks, soil and the ancient environment of Mars.</p>
+        </article>
+
+        <article class="artifact">
+            <img class="artifact-img" src="AI.avif" alt="Artificial intelligence technology">
+            <span class="num">08</span>
+            <h3>ARTIFICIAL INTELLIGENCE</h3>
+            <p>Modern computing systems capable of recognizing patterns and generating content.</p>
+        </article>
+
+    </div>
+</section>
+
+<!-- ================= PREHISTORY ================= -->
+<section id="prehistory" class="collection-page">
+
+<section class="collection-page-hero" style="background-image:linear-gradient(to bottom,rgba(2,7,10,.35),rgba(2,7,10,.96)),url('history.avif');">
+    <div class="collection-hero-content">
+        <p class="section-label">COLLECTION 01 • THE BEGINNING</p>
+        <h1>PREHISTORY</h1>
+        <p>The age when humanity first learned to create, survive and imagine.</p>
+    </div>
+</section>
+
+<section class="collection-intro">
+    <p class="section-label">THE STORY</p>
+    <h2>Where the journey <span>begins.</span></h2>
+    <p>Long before written history, early humans developed tools, controlled fire, created art and formed communities. Prehistory is the story of the first great steps toward civilization.</p>
+</section>
+
+<section class="facts-strip">
+    <div class="fact-card"><strong>2M+</strong><span>Years of early toolmaking</span></div>
+    <div class="fact-card"><strong>400,000+</strong><span>Years of controlled fire</span></div>
+    <div class="fact-card"><strong>40,000+</strong><span>Years of cave art</span></div>
+    <div class="fact-card"><strong>10,000+</strong><span>Years since early farming</span></div>
+</section>
+
+<section class="collection-artifacts">
+    <div class="collection-artifacts-heading">
+        <p class="section-label">THE COLLECTION</p>
+        <h2>Featured Artifacts</h2>
+    </div>
+    <div class="artifact-list">
+
+        <article class="collection-artifact">
+            <div class="artifact-number">01</div>
+            <div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">2.6 MILLION YEARS AGO</span>
+                <h3>STONE TOOLS</h3>
+                <p>The earliest known stone tools gave early humans a powerful new way to cut, break and process materials.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">02</div>
+            <div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">HUNDREDS OF THOUSANDS OF YEARS AGO</span>
+                <h3>CONTROLLED FIRE</h3>
+                <p>Fire provided warmth and protection while also allowing humans to cook food and gather around a shared source of light.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">03</div>
+            <div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">40,000+ YEARS AGO</span>
+                <h3>CAVE PAINTINGS</h3>
+                <p>Prehistoric artists painted animals, symbols and scenes on cave walls, leaving behind some of humanity's earliest visual stories.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">04</div>
+            <div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">AROUND 10,000 YEARS AGO</span>
+                <h3>EARLY FARMING</h3>
+                <p>The development of agriculture changed human life by encouraging permanent settlements and larger communities.</p>
+            </div>
+        </article>
+
+    </div>
+</section>
+</section>
+
+<!-- ================= ANCIENT ================= -->
+<section id="ancient" class="collection-page">
+
+<section class="collection-page-hero" style="background-image:linear-gradient(to bottom,rgba(2,7,10,.35),rgba(2,7,10,.96)),url('ancient.png');">
+    <div class="collection-hero-content">
+        <p class="section-label">COLLECTION 02 • FOUNDATIONS OF CIVILIZATION</p>
+        <h1>ANCIENT CIVILIZATIONS</h1>
+        <p>Cities, writing, mathematics and monumental ideas shaped the ancient world.</p>
+    </div>
+</section>
+
+<section class="collection-intro">
+    <p class="section-label">THE STORY</p>
+    <h2>The foundations of <span>civilization.</span></h2>
+    <p>The ancient world saw the rise of organized cities, governments, writing systems and extraordinary architecture. Civilizations across Africa, Asia, Europe and the Americas created ideas that continue to influence us today.</p>
+</section>
+
+<section class="facts-strip">
+    <div class="fact-card"><strong>3500 BCE</strong><span>Early writing systems</span></div>
+    <div class="fact-card"><strong>2500 BCE</strong><span>Great monuments</span></div>
+    <div class="fact-card"><strong>2000 BCE</strong><span>Advanced mathematics</span></div>
+    <div class="fact-card"><strong>1000s</strong><span>Years of recorded history</span></div>
+</section>
+
+<section class="collection-artifacts">
+    <div class="collection-artifacts-heading">
+        <p class="section-label">THE COLLECTION</p>
+        <h2>Featured Artifacts</h2>
+    </div>
+    <div class="artifact-list">
+
+        <article class="collection-artifact">
+            <div class="artifact-number">01</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">AROUND 3200 BCE</span>
+                <h3>CUNEIFORM TABLET</h3>
+                <p>One of the earliest writing systems used wedge-shaped marks pressed into clay to record information.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">02</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">AROUND 2600 BCE</span>
+                <h3>PYRAMIDS</h3>
+                <p>The monumental pyramids of ancient Egypt demonstrate extraordinary planning, engineering and organization.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">03</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">ANCIENT EGYPT</span>
+                <h3>PAPYRUS</h3>
+                <p>A plant-based writing material helped Egyptian administrators, scholars and scribes preserve information.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">04</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">ANCIENT CHINA</span>
+                <h3>ANCIENT COMPASS</h3>
+                <p>Early magnetic technology eventually contributed to one of history's most important navigation inventions.</p>
+            </div>
+        </article>
+
+    </div>
+</section>
+</section>
+
+<!-- ================= INDUSTRIAL ================= -->
+<section id="industrial" class="collection-page">
+
+<section class="collection-page-hero" style="background-image:linear-gradient(to bottom,rgba(2,7,10,.35),rgba(2,7,10,.96)),url('industrial.avif');">
+    <div class="collection-hero-content">
+        <p class="section-label">COLLECTION 03 • MACHINES CHANGE THE WORLD</p>
+        <h1>INDUSTRIAL REVOLUTION</h1>
+        <p>Steam, factories and machines transformed how people worked and traveled.</p>
+    </div>
+</section>
+
+<section class="collection-intro">
+    <p class="section-label">THE STORY</p>
+    <h2>When machines <span>changed the world.</span></h2>
+    <p>Beginning in the 18th century, industrialization introduced machines and new manufacturing systems on an unprecedented scale. It changed cities, transportation, communication, work and everyday life.</p>
+</section>
+
+<section class="facts-strip">
+    <div class="fact-card"><strong>18TH C.</strong><span>Industrialization begins</span></div>
+    <div class="fact-card"><strong>1769</strong><span>Watt steam-engine patent</span></div>
+    <div class="fact-card"><strong>1800s</strong><span>Railways expand</span></div>
+    <div class="fact-card"><strong>19TH C.</strong><span>Mass production grows</span></div>
+</section>
+
+<section class="collection-artifacts">
+    <div class="collection-artifacts-heading">
+        <p class="section-label">THE COLLECTION</p>
+        <h2>Featured Artifacts</h2>
+    </div>
+    <div class="artifact-list">
+
+        <article class="collection-artifact">
+            <div class="artifact-number">01</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">18TH CENTURY</span>
+                <h3>STEAM ENGINE</h3>
+                <p>Improved steam engines provided mechanical power for mines, factories and transportation.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">02</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">18TH CENTURY</span>
+                <h3>SPINNING MACHINE</h3>
+                <p>New textile machines dramatically increased the speed and scale of cloth production.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">03</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">19TH CENTURY</span>
+                <h3>STEAM LOCOMOTIVE</h3>
+                <p>Railways connected cities and communities while making long-distance travel faster.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">04</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">19TH CENTURY</span>
+                <h3>TELEGRAPH</h3>
+                <p>Electrical telegraphy allowed messages to travel across great distances far faster than physical transport.</p>
+            </div>
+        </article>
+
+    </div>
+</section>
+</section>
+
+<!-- ================= MODERN ================= -->
+<section id="modern" class="collection-page">
+
+<section class="collection-page-hero" style="background-image:linear-gradient(to bottom,rgba(2,7,10,.35),rgba(2,7,10,.96)),url('modern.avif');">
+    <div class="collection-hero-content">
+        <p class="section-label">COLLECTION 04 • THE MODERN WORLD</p>
+        <h1>MODERN INNOVATIONS</h1>
+        <p>Electricity, medicine, aviation and communication reshaped everyday human life.</p>
+    </div>
+</section>
+
+<section class="collection-intro">
+    <p class="section-label">THE STORY</p>
+    <h2>A century of <span>rapid innovation.</span></h2>
+    <p>The 20th century brought an extraordinary acceleration of scientific and technological progress. New forms of energy, transportation, medicine and communication changed how billions of people live.</p>
+</section>
+
+<section class="facts-strip">
+    <div class="fact-card"><strong>1903</strong><span>Powered flight</span></div>
+    <div class="fact-card"><strong>1928</strong><span>Penicillin discovered</span></div>
+    <div class="fact-card"><strong>1940s</strong><span>Electronic computers emerge</span></div>
+    <div class="fact-card"><strong>1969</strong><span>Humans reach the Moon</span></div>
+</section>
+
+<section class="collection-artifacts">
+    <div class="collection-artifacts-heading">
+        <p class="section-label">THE COLLECTION</p>
+        <h2>Featured Artifacts</h2>
+    </div>
+    <div class="artifact-list">
+
+        <article class="collection-artifact">
+            <div class="artifact-number">01</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">19TH–20TH CENTURY</span>
+                <h3>TELEPHONE</h3>
+                <p>Telephones transformed personal communication by allowing people to speak across long distances.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">02</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">20TH CENTURY</span>
+                <h3>AIRPLANE</h3>
+                <p>Powered flight changed global travel and made it possible to cross continents and oceans in hours.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">03</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">20TH CENTURY</span>
+                <h3>PENICILLIN</h3>
+                <p>The discovery and development of antibiotics transformed the treatment of many bacterial infections.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">04</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">1947</span>
+                <h3>TRANSISTOR</h3>
+                <p>The transistor became a fundamental building block of modern electronics and later digital technology.</p>
+            </div>
+        </article>
+
+    </div>
+</section>
+</section>
+
+<!-- ================= SPACE ================= -->
+<section id="space" class="collection-page">
+
+<section class="collection-page-hero" style="background-image:linear-gradient(to bottom,rgba(2,7,10,.35),rgba(2,7,10,.96)),url(space.avif);">
+    <div class="collection-hero-content">
+        <p class="section-label">COLLECTION 05 • BEYOND EARTH</p>
+        <h1>SPACE EXPLORATION</h1>
+        <p>From the first satellites to the Moon and beyond, humanity began exploring the cosmos.</p>
+    </div>
+</section>
+
+<section class="collection-intro">
+    <p class="section-label">THE STORY</p>
+    <h2>Reaching <span>beyond Earth.</span></h2>
+    <p>Space exploration expanded the boundaries of human knowledge. Satellites, robotic spacecraft and crewed missions allowed us to study planets, stars and the environment around Earth.</p>
+</section>
+
+<section class="facts-strip">
+    <div class="fact-card"><strong>1957</strong><span>First artificial satellite</span></div>
+    <div class="fact-card"><strong>1961</strong><span>First human in space</span></div>
+    <div class="fact-card"><strong>1969</strong><span>First humans on the Moon</span></div>
+    <div class="fact-card"><strong>TODAY</strong><span>Robotic exploration continues</span></div>
+</section>
+
+<section class="collection-artifacts">
+    <div class="collection-artifacts-heading">
+        <p class="section-label">THE COLLECTION</p>
+        <h2>Featured Artifacts</h2>
+    </div>
+    <div class="artifact-list">
+
+        <article class="collection-artifact">
+            <div class="artifact-number">01</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">1957</span>
+                <h3>SPUTNIK 1</h3>
+                <p>The first artificial satellite marked the beginning of the space age and demonstrated that objects could orbit Earth.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">02</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">20TH CENTURY</span>
+                <h3>SPACE SUIT</h3>
+                <p>Space suits protect astronauts from the harsh environment of space while allowing them to work outside a spacecraft.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">03</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">1969</span>
+                <h3>LUNAR MODULE</h3>
+                <p>The Apollo lunar module carried astronauts from lunar orbit to the Moon's surface and back.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">04</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">21ST CENTURY</span>
+                <h3>MARS ROVER</h3>
+                <p>Robotic rovers have explored the Martian surface, studying rocks, soil and the planet's ancient environment.</p>
+            </div>
+        </article>
+
+    </div>
+</section>
+</section>
+
+<!-- ================= DIGITAL AGE ================= -->
+<section id="digital" class="collection-page">
+
+<section class="collection-page-hero" style="background-image:linear-gradient(to bottom,rgba(2,7,10,.35),rgba(2,7,10,.96)),url('digital.avif');">
+    <div class="collection-hero-content">
+        <p class="section-label">COLLECTION 06 • THE CONNECTED WORLD</p>
+        <h1>DIGITAL AGE</h1>
+        <p>Computers, networks and artificial intelligence are reshaping the future.</p>
+    </div>
+</section>
+
+<section class="collection-intro">
+    <p class="section-label">THE STORY</p>
+    <h2>The world becomes <span>connected.</span></h2>
+    <p>The digital revolution transformed information from something stored mainly on paper into something that can be processed, copied and shared almost instantly. Computing now touches nearly every part of modern life.</p>
+</section>
+
+<section class="facts-strip">
+    <div class="fact-card"><strong>1940s</strong><span>Electronic computers</span></div>
+    <div class="fact-card"><strong>1989</strong><span>World Wide Web proposed</span></div>
+    <div class="fact-card"><strong>2000s</strong><span>Smartphones expand</span></div>
+    <div class="fact-card"><strong>TODAY</strong><span>AI develops rapidly</span></div>
+</section>
+
+<section class="collection-artifacts">
+    <div class="collection-artifacts-heading">
+        <p class="section-label">THE COLLECTION</p>
+        <h2>Featured Artifacts</h2>
+    </div>
+    <div class="artifact-list">
+
+        <article class="collection-artifact">
+            <div class="artifact-number">01</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">20TH CENTURY</span>
+                <h3>EARLY COMPUTER</h3>
+                <p>Early electronic computers demonstrated that machines could process complex calculations at remarkable speed.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">02</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">1970s</span>
+                <h3>MICROPROCESSOR</h3>
+                <p>The microprocessor placed the central processing functions of a computer onto a compact chip.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">03</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">1989–1991</span>
+                <h3>WORLD WIDE WEB</h3>
+                <p>The Web made it possible to connect documents and information through a system accessible across the Internet.</p>
+            </div>
+        </article>
+
+        <article class="collection-artifact">
+            <div class="artifact-number">04</div><div class="artifact-symbol">✦</div>
+            <div>
+                <span class="artifact-date">20TH–21ST CENTURY</span>
+                <h3>ARTIFICIAL INTELLIGENCE</h3>
+                <p>Modern AI systems can recognize patterns, generate content and assist with increasingly complex tasks.</p>
+            </div>
+        </article>
+
+    </div>
+</section>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about" class="about">
+    <div class="about-box">
+        <p class="section-label">ABOUT THE PROJECT</p>
+        <h2 class="section-heading" style="padding:0;margin:12px auto 0;">
+            A museum built for the <span>digital world.</span>
+        </h2>
+        <p>
+            Digital Museum is an educational journey through major stages of
+            human innovation. It brings history, technology and discovery
+            together in one interactive website.
+        </p>
+        <div class="about-details">
+            Designed & Built by MARIAM23IRFAN
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <p>A journey through human innovation, discovery and imagination.</p>
+    <p style="margin-top:8px;">Built by <strong>MARIAM23IRFAN</strong></p>
+</footer>
+
+<script>
+/* Smooth navigation for the single-page museum */
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e){
+        const target = document.querySelector(this.getAttribute('href'));
+        if(target){
+            e.preventDefault();
+            target.scrollIntoView({behavior:'smooth',block:'start'});
+        }
+    });
+});
+</script>
+
+</body>
+</html>
